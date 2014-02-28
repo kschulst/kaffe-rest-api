@@ -23,7 +23,7 @@ public class KaffeRestApiApplication extends Application<KaffeRestApiConfigurati
 	public static void main(String[] args) throws Exception {
 		if (args == null || args.length == 0) {
 			args = new String[] {
-					"server", "kaffe-rest-api.yml"
+					"server", "config.yml"
 			};
 		}
 		new KaffeRestApiApplication().run(args);
