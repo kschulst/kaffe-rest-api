@@ -1,0 +1,20 @@
+server:
+  type: simple
+  connector:
+    type: http
+    port: $PORT
+  applicationContextPath: /api
+  adminContextPath: /admin
+
+logging:
+
+ # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+  level: INFO
+
+  appenders:
+  - type: console
+    threshold: ALL
+
+  loggers:
+    "86250.kaffe.rest": DEBUG
+    "org.springframework.security": INFO
