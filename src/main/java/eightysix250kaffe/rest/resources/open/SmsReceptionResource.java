@@ -16,6 +16,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.MultivaluedMap;
 
 @Slf4j
 @Path("/open/kaffe/sms")
@@ -23,14 +24,14 @@ import javax.ws.rs.core.MediaType;
 public class SmsReceptionResource {
 
     @POST
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_XML)
-    public String testReceive(Object request) {
-        log.info("POST testReceive: " + request);
-        log.info("request class: " + request.getClass());
+    public String testReceive(MultivaluedMap<String,String> params) {
+        log.info("POST testReceive: " + params);
 
         TwiMLResponse twiml = new TwiMLResponse();
         try {
-            twiml.append(new Sms("Hei på deg :) " + new DateTime() + ", request: " + request));
+            twiml.append(new Sms("Hei på deg :) " + new DateTime() + ", request: " + params));
         }
         catch (TwiMLException e) {
             log.error("Error building twiML: " + e.getMessage(), e);
