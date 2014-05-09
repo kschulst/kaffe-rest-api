@@ -26,7 +26,7 @@ public class EventParticipant {
 
     @JsonIgnore
     public ParticipantId getParticipantId() {
-        return participant.getId();
+        return participant.getParticipantId();
     }
 
     public boolean isOrderOverride() {

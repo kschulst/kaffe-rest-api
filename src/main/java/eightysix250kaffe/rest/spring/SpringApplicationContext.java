@@ -1,6 +1,5 @@
 package eightysix250kaffe.rest.spring;
 
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 
@@ -11,9 +10,9 @@ import org.springframework.context.annotation.ImportResource;
 @ImportResource({
         "classpath:spring/kaffe-rest-api-spring-resources.xml"
         })
-@ComponentScan(basePackages = {
-        "eightysix250kaffe.rest"
-})
+//@ComponentScan(basePackages = {
+//        "eightysix250kaffe.rest"
+//})
 public class SpringApplicationContext {
 
 }

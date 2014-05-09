@@ -7,16 +7,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Repository;
 
+import java.util.Map;
 import java.util.Set;
 
 @Slf4j
 @Repository
 public class StaticEventRepository implements EventRepository {
 
-    private static final ImmutableMap<String, Event> COFFEE_EVENTS =
+    private static final Map<String, Event> COFFEE_EVENTS =
          new ImmutableMap.Builder<String, Event>()
-             .put("1", Event.builder().id("1").dateTime(new DateTime("2014-02-14T08:45:00Z")).organizerId(StaticParticipantRepository.MATS.getId()).build().addParticipants(StaticParticipantRepository.KENNETH, StaticParticipantRepository.MATS))
-             .put("2", Event.builder().id("2").dateTime(new DateTime("2014-02-21T08:45:00Z")).organizerId(StaticParticipantRepository.KENNETH.getId()).build().addParticipants(StaticParticipantRepository.MATS, StaticParticipantRepository.KENNETH))
+             .put("1", Event.builder().id(1).dateTime(new DateTime("2014-02-14T08:45:00Z")).organizerId(StaticParticipantRepository.MATS.getParticipantId()).build().addParticipants(StaticParticipantRepository.KENNETH, StaticParticipantRepository.MATS))
+             .put("2", Event.builder().id(2).dateTime(new DateTime("2014-02-21T08:45:00Z")).organizerId(StaticParticipantRepository.KENNETH.getParticipantId()).build().addParticipants(StaticParticipantRepository.MATS, StaticParticipantRepository.KENNETH))
              .build();
 
     @Override

@@ -15,14 +15,15 @@ import static com.google.common.base.Strings.isNullOrEmpty;
 @Data
 @Builder
 public class Event {
-    private final String id;
+    private final int id;
     private ParticipantId organizerId;
     private DateTime dateTime;
     private final Set<EventParticipant> participants = Sets.newHashSet();
 
     public Optional<EventParticipant> getParticipant(final ParticipantId id) {
         return Iterables.tryFind(participants, new Predicate<EventParticipant>() {
-            public boolean apply(EventParticipant eventParticipant) {
+            @Override
+			public boolean apply(EventParticipant eventParticipant) {
                 return eventParticipant.getParticipantId().equals(id);
             }
         });
@@ -48,7 +49,7 @@ public class Event {
 
     public EventParticipant confirm(final ParticipantId id, EventParticipant.Confirmation confirmation) {
         for (EventParticipant p : participants) {
-            if (p.getParticipant().getId().equals(id)) {
+            if (p.getParticipant().getParticipantId().equals(id)) {
                 p.setConfirmed(confirmation);
                 return p;
             }

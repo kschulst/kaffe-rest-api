@@ -5,7 +5,7 @@ import io.dropwizard.Configuration;
 
 public class KaffeRestApiConfiguration extends Configuration {
 
-    public Class[] getSpringApplicationContextClasses() {
+    public Class<?>[] getSpringApplicationContextClasses() {
         return new Class[] { SpringApplicationContext.class };
     }
 }

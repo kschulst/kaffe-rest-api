@@ -1,15 +1,5 @@
 package eightysix250kaffe.rest.resources.open;
 
-import com.twilio.sdk.examples.TwiMLResponseExample;
-import com.twilio.sdk.verbs.Sms;
-import com.twilio.sdk.verbs.TwiMLException;
-import com.twilio.sdk.verbs.TwiMLResponse;
-import eightysix250kaffe.rest.api.Participant;
-import lombok.extern.slf4j.Slf4j;
-import org.joda.time.DateTime;
-import org.springframework.stereotype.Service;
-
-import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -17,6 +7,15 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
+
+import lombok.extern.slf4j.Slf4j;
+
+import org.joda.time.DateTime;
+import org.springframework.stereotype.Service;
+
+import com.twilio.sdk.verbs.Sms;
+import com.twilio.sdk.verbs.TwiMLException;
+import com.twilio.sdk.verbs.TwiMLResponse;
 
 @Slf4j
 @Path("/open/kaffe/sms")

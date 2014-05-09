@@ -10,7 +10,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Strings.isNullOrEmpty;
 
 public abstract class ValueWrapper<T> implements Serializable {
-    protected final T value;
+	
+	private static final long serialVersionUID = 1L;
+	
+	protected final T value;
 
     protected ValueWrapper(T value) {
         this.value = checkNotNull(value, this.getClass().getSimpleName() + " value cannot be null");
@@ -28,7 +31,7 @@ public abstract class ValueWrapper<T> implements Serializable {
     @Override
     public boolean equals(Object object) {
         if (object instanceof ValueWrapper) {
-            ValueWrapper that = (ValueWrapper) object;
+            ValueWrapper<?> that = (ValueWrapper<?>) object;
             return Objects.equal(this.value, that.value);
         }
         return false;

@@ -59,7 +59,7 @@ public class SpringConfigurationHelper {
 
         //the real main app context has a link to the parent context
         ctx.setParent(parent);
-        for (Class springConfigClass : springApplicationContextClasses) {
+        for (Class<?> springConfigClass : springApplicationContextClasses) {
             ctx.register(springConfigClass);
         }
 
@@ -73,8 +73,9 @@ public class SpringConfigurationHelper {
 
     private static String[] configLocations(LinkedHashSet<Class<?>> springApplicationContextClasses) {
         return Iterables.toArray(
-                Iterables.transform(springApplicationContextClasses, new Function<Class, String>() {
-                    public String apply(Class springConfig) {
+                Iterables.transform(springApplicationContextClasses, new Function<Class<?>, String>() {
+                    @Override
+					public String apply(Class<?> springConfig) {
                         return springConfig.getPackage().getName();
                     }
                 }),

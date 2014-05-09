@@ -1,54 +1,65 @@
 package eightysix250kaffe.rest.resources.open;
 
-import eightysix250kaffe.rest.api.Participant;
-import eightysix250kaffe.rest.api.ParticipantId;
-import eightysix250kaffe.rest.repositories.ParticipantRepository;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
+import java.util.List;
 
 import javax.validation.Valid;
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.Set;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import org.skife.jdbi.v2.DBI;
+import org.skife.jdbi.v2.spring.DBIFactoryBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-@Slf4j
+import eightysix250kaffe.rest.api.Participant;
+import eightysix250kaffe.rest.api.ParticipantId;
+import eightysix250kaffe.rest.repositories.ParticipantDao;
+
 @Path("/open/kaffe/participants")
 @Service
 @Produces(MediaType.APPLICATION_JSON)
 public class ParticipantsResource {
 
-    private final ParticipantRepository participantRepository;
-
-    @Autowired
-    public ParticipantsResource(@Qualifier("staticParticipantRepository") ParticipantRepository participantRepository) {
-        this.participantRepository = checkNotNull(participantRepository);
-    }
+	@Autowired
+	private DBIFactoryBean dbiFactoryBean;
 
     @GET
-    public Set<Participant> getAll() {
-        return participantRepository.list();
+    public List<Participant> getAll() {
+    	return getDBI().open(ParticipantDao.class).list();
     }
+
+	private DBI getDBI() {
+		DBI dbi;
+		try {
+			dbi = (DBI) dbiFactoryBean.getObject();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return dbi;
+	}
 
     @GET
     @Path("{id}")
     public Participant getById(@PathParam("id") ParticipantId id) {
-        return participantRepository.findById(id);
+        return getDBI().open(ParticipantDao.class).findByParticipantId(id.toString());
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Participant create(@Valid Participant participant) {
-        return participantRepository.save(participant);
+        return getDBI().open(ParticipantDao.class).insert(participant);
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public Participant update(@Valid Participant participant) {
-        return participantRepository.save(participant);
+        return getDBI().open(ParticipantDao.class).insert(participant);
     }
-
+    
 }
